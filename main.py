@@ -1,50 +1,78 @@
 # main.py
-# Import the Arcade library
+
+# Import the main Arcade library
 import arcade
 
-# Import global settings (screen size, colors, etc.)
+# Import game settings (screen size, colors, movement speed, etc.)
 import settings
 
+# Import the Player class from the entities folder
+from entities.player import Player
 
+#Main game class for NeoGalaga.
 class NeoGalagaGame(arcade.Window):
     
-    #Main game class. Inherits from arcade.Window and controls the game loop,
-    #including drawing, updating, and input handling.
+    #Inherits from arcade.Window to manage window behavior, game loop, and rendering.
 
+    #Constructor: sets up the game window and background color.
     def __init__(self):
         
-        #Constructor. Initializes the game window and background color.
-        
         super().__init__(
-            settings.SCREEN_WIDTH,      # Window width (from settings.py)
-            settings.SCREEN_HEIGHT,     # Window height
-            settings.SCREEN_TITLE       # Window title
+            settings.SCREEN_WIDTH,     # Width of the game window
+            settings.SCREEN_HEIGHT,    # Height of the game window
+            settings.SCREEN_TITLE      # Title shown on the window bar
         )
 
-        # Set the background color using the DARK_SPACE from the color palette
+        # Set the futuristic space background color
         arcade.set_background_color(settings.DARK_SPACE)
 
-        # Game objects will be initialized in the setup() method
-        # (e.g., player sprite, enemy list, score, etc.)
+        # Placeholder for the player sprite (initialized in setup)
+        self.player = None
 
+    # Set up the initial game state (called once at the beginning).
     def setup(self):
         
-        # Set up the game variables. This method is called once when the game starts,
-        # and can be reused to reset the game state.
+        #Used to create the player, enemy lists, bullets, score, etc.
 
-        pass  # To be filled with initial game logic (e.g., create sprites)
+        # Create an instance of the Player class
+        self.player = Player()
 
+    # Called every frame to draw all game elements on the screen.
     def on_draw(self):
         
-        # Render the screen. Called automatically by the Arcade library every frame.
+        arcade.start_render()     # Clear the screen and prepare for drawing
+        self.player.draw()        # Draw the player sprite
+
+    #Called every frame to update game logic (movement, collisions, etc.).
+    def on_update(self, delta_time):
         
-        arcade.start_render()  # Clear the screen and start drawing
+        #delta_time = time passed since last frame (not used here yet).
 
-        # All draw calls (sprites, UI, background elements) will go here
+        self.player.update()      # Update player position based on velocity
+
+    # Called when the player presses a key.
+    def on_key_press(self, key, modifiers):
+        
+        #Used to start movement in a direction.
+        
+        # Set the player's velocity based on the key pressed
+        if key in (arcade.key.LEFT, arcade.key.A):
+            self.player.change_x = -self.player.speed
+        elif key in (arcade.key.RIGHT, arcade.key.D):
+            self.player.change_x = self.player.speed
+
+    # Called when the player releases a key.
+    def on_key_release(self, key, modifiers):
+       
+        #Stops movement in that direction.
+        
+        # Stop the player's horizontal movement when the key is released
+        if key in (arcade.key.LEFT, arcade.key.RIGHT, arcade.key.A, arcade.key.D):
+            self.player.change_x = 0
 
 
-# Main function: starts the game only if this file is run directly
+# Run this only if the file is executed directly
 if __name__ == "__main__":
-    game = NeoGalagaGame()  # Create game window instance
-    game.setup()            # Initialize game variables and sprites
-    arcade.run()            # Run the main game loop (calls on_draw continuously)
+    game = NeoGalagaGame()   # Create the game window
+    game.setup()             # Initialize game content (player, etc.)
+    arcade.run()             # Start the main game loop (render + update)
