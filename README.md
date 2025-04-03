@@ -28,8 +28,7 @@ Developed in Python using the [Arcade](https://api.arcade.academy/en/latest/) li
 
 ## 📁 Project Structure
 
-NeoGalaga/ ├── main.py # Game entry point ├── settings.py # Global configuration │ ├── core/ # Core game logic │ └── game.py │ ├── entities/ # Game entities (player, enemies, bullets) │ ├── player.py │ ├── enemy.py │ └── bullet.py │ ├── assets/ # Visual and audio assets │ ├── images/ │ └── sounds/ │ ├── utils/ # Helper functions (optional) │ └── math_helpers.py │ ├── .gitignore # Git ignored files ├── .editorconfig # Code formatting rules ├── LICENSE # Project license (MIT) └── README.md # This file
-
+NeoGalaga/ ├── main.py # Game entry point ├── settings.py # Global configuration │ ├── core/ # Core game logic │ └── game.py # (to be created) │ ├── entities/ # Game entities (player, enemies, bullets) │ ├── player.py # Player class with movement logic │ └── enemy.py # (to be created) │ └── bullet.py # (to be created) │ ├── assets/ # Visual and audio assets │ ├── images/ │ └── sounds/ │ ├── utils/ # Helper functions (optional) │ └── math_helpers.py # (to be created) │ ├── .gitignore # Git ignored files ├── .editorconfig # Code formatting rules ├── LICENSE # Project license (MIT) └── README.md # Project documentation
 
 ---
 
@@ -51,10 +50,15 @@ python main.py
 
 📌 Current Status
 ✅ Project structure initialized
-🔧 In development: player movement, shooting system, enemy behavior
+✅ Player sprite added and integrated with keyboard movement
+🔧 In development: bullet system and shooting mechanics
 
 ✨ Features to Be Added
+Player shooting system (bullets)
+
 Multiple enemy types and wave patterns
+
+Collision detection
 
 Power-ups and special weapons
 
@@ -63,3 +67,8 @@ Scoring system and UI
 Sound effects and background music
 
 Game over and level progression
+
+📄 License
+This project is licensed under the MIT License.
+Developed by Cristian J. H. D.
+GitHub: @cristianjhd92
