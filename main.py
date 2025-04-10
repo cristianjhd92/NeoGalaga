@@ -9,6 +9,10 @@ import settings
 # Import the Player class from the entities folder
 from entities.player import Player
 
+# Import the Bullet class from the entities folder
+from entities.bullet import Bullet
+
+
 #Main game class for NeoGalaga.
 class NeoGalagaGame(arcade.Window):
     
@@ -29,19 +33,28 @@ class NeoGalagaGame(arcade.Window):
         # Placeholder for the player sprite (initialized in setup)
         self.player = None
 
+        # Placeholder for the enemy sprite list (initialized in setup)
+        self.bullet_list = None
+
     # Set up the initial game state (called once at the beginning).
     def setup(self):
         
-        #Used to create the player, enemy lists, bullets, score, etc.
+        # Used to create the player, enemy lists, bullets, score, etc.
 
         # Create an instance of the Player class
         self.player = Player()
+
+        # Set the player's initial position to the center of the screen
+        self.bullet_list = arcade.SpriteList()
+
 
     # Called every frame to draw all game elements on the screen.
     def on_draw(self):
         
         arcade.start_render()     # Clear the screen and prepare for drawing
         self.player.draw()        # Draw the player sprite
+        self.bullet_list.draw()   # Draw all bullets in the bullet list
+
 
     #Called every frame to update game logic (movement, collisions, etc.).
     def on_update(self, delta_time):
@@ -60,6 +73,10 @@ class NeoGalagaGame(arcade.Window):
             self.player.change_x = -self.player.speed
         elif key in (arcade.key.RIGHT, arcade.key.D):
             self.player.change_x = self.player.speed
+        elif key == arcade.key.SPACE:
+            bullet = Bullet(self.player.center_x, self.player.top)
+            self.bullet_list.append(bullet)
+
 
     # Called when the player releases a key.
     def on_key_release(self, key, modifiers):
