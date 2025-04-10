@@ -28,15 +28,20 @@ Developed in Python using the [Arcade](https://api.arcade.academy/en/latest/) li
 
 ## 📁 Project Structure
 
-NeoGalaga/ ├── main.py # Game entry point ├── settings.py # Global configuration │ ├── core/ # Core game logic │ └── game.py # (to be created) │ ├── entities/ # Game entities (player, enemies, bullets) │ ├── player.py # Player class with movement logic │ └── enemy.py # (to be created) │ └── bullet.py # (to be created) │ ├── assets/ # Visual and audio assets │ ├── images/ │ └── sounds/ │ ├── utils/ # Helper functions (optional) │ └── math_helpers.py # (to be created) │ ├── .gitignore # Git ignored files ├── .editorconfig # Code formatting rules ├── LICENSE # Project license (MIT) └── README.md # Project documentation
+```
+
+NeoGalaga/ ├── main.py # Game entry point ├── settings.py # Global configuration │ ├── core/ # Core game logic │ └── game.py # (to be created) │ ├── entities/ # Game entities (player, enemies, bullets) │ ├── player.py # Player class with movement logic │ ├── enemy.py # (to be created) │ └── bullet.py # Bullet class fired by the player │ ├── assets/ # Visual and audio assets │ ├── images/ │ └── sounds/ │ ├── utils/ # Helper functions (optional) │ └── math_helpers.py # (to be created) │ ├── .gitignore # Git ignored files ├── .editorconfig # Code formatting rules ├── LICENSE # Project license (MIT) └── README.md # Project documentation
+
+```
 
 ---
 
 ## ▶️ How to Run the Game
 
+```bash
+
 1. Clone the repository:
 
-```bash
 git clone https://github.com/cristianjhd92/NeoGalaga.git
 cd NeoGalaga
 
@@ -48,17 +53,23 @@ pip install arcade
 
 python main.py
 
-📌 Current Status
+```
+---
+
+## 📌 Current Status
+
 ✅ Project structure initialized
 ✅ Player sprite added and integrated with keyboard movement
-🔧 In development: bullet system and shooting mechanics
+✅ Bullet system implemented (player can shoot with spacebar)
+🔧 In development: enemy behavior and wave generation
 
-✨ Features to Be Added
-Player shooting system (bullets)
+---
 
-Multiple enemy types and wave patterns
+## ✨ Features to Be Added
 
-Collision detection
+Enemy classes and attack patterns
+
+Collision detection (bullets vs enemies)
 
 Power-ups and special weapons
 
@@ -66,9 +77,10 @@ Scoring system and UI
 
 Sound effects and background music
 
-Game over and level progression
+Game over screen and level progression
 
-📄 License
+## 📄 License
+
 This project is licensed under the MIT License.
 Developed by Cristian J. H. D.
 GitHub: @cristianjhd92
