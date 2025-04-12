@@ -19,6 +19,7 @@ class Player(arcade.Sprite):
         # Passes the texture correctly as a positional argument.
 
         # Create a soft-colored square texture to use as the player ship
+        
         texture = arcade.make_soft_square_texture(
             size=40,                  # Width and height of the square (in pixels)
             color=settings.CYAN,     # Use CYAN from the futuristic palette
@@ -36,11 +37,11 @@ class Player(arcade.Sprite):
         # Set the base speed for left/right movement
         self.speed = settings.PLAYER_MOVEMENT_SPEED
 
-    def update(self):
+    def update(self, delta_time: float = 1 / 60):
         
-        # Update the player's position. Called every frame.
-        # Handles horizontal movement and enforces screen boundaries.
-        
+        # Update the player's position. Called every frame by the SpriteList.
+        # Handles horizontal movement and keeps the player within screen bounds.
+        # delta_time is passed by Arcade but not used here.
         # Apply horizontal movement
         self.center_x += self.change_x
 
