@@ -16,15 +16,13 @@ from entities.bullet import Bullet
 from entities.enemy import Enemy
 
 
-
-#Main game class for NeoGalaga.
+# Main game class for NeoGalaga.
 class NeoGalagaGame(arcade.Window):
     
-    #Inherits from arcade.Window to manage window behavior, game loop, and rendering.
+    # Inherits from arcade.Window to manage window behavior, game loop, and rendering.
 
-    #Constructor: sets up the game window and background color.
+    # Constructor: sets up the game window and background color.
     def __init__(self):
-        
         super().__init__(
             settings.SCREEN_WIDTH,     # Width of the game window
             settings.SCREEN_HEIGHT,    # Height of the game window
@@ -34,28 +32,20 @@ class NeoGalagaGame(arcade.Window):
         # Set the futuristic space background color
         arcade.set_background_color(settings.DARK_SPACE)
 
-        # Placeholder for the player sprite (initialized in setup)
+        # Initialize object placeholders (they will be created in setup())
         self.player = None
-
-        # Placeholder for the enemy sprite list (initialized in setup)
         self.bullet_list = None
-
-        # Placeholder for the enemy sprite list (initialized in setup)
         self.enemy_list = None
-
 
     # Set up the initial game state (called once at the beginning).
     def setup(self):
         
-        # Used to create the player, enemy lists, bullets, score, etc.
-
+        # Used to create the player, enemy list, bullet list, etc.
         # Create an instance of the Player class
         self.player = Player()
 
-        # Set the player's initial position to the center of the screen
+        # Initialize bullet and enemy sprite lists
         self.bullet_list = arcade.SpriteList()
-
-
         self.enemy_list = arcade.SpriteList()
 
         # Create a basic grid formation (5 enemies in a row)
@@ -63,62 +53,53 @@ class NeoGalagaGame(arcade.Window):
             enemy = Enemy(start_x=x, start_y=settings.SCREEN_HEIGHT - 80)
             self.enemy_list.append(enemy)
 
-
-
     # Called every frame to draw all game elements on the screen.
     def on_draw(self):
         
-        arcade.start_render()     # Clear the screen and prepare for drawing
-        self.player.draw()        # Draw the player sprite
-        self.bullet_list.draw()   # Draw all bullets in the bullet list
-        self.enemy_list.draw()    # Draw all enemies in the enemy list
+        # Handles drawing everything on the screen each frame.
+        arcade.start_render()         # Clear the screen and prepare for drawing
+        self.player.draw()            # Draw the player sprite
+        self.bullet_list.draw()       # Draw all bullets in the bullet list
+        self.enemy_list.draw()        # Draw all enemies in the enemy list
 
-
-    #Called every frame to update game logic (movement, collisions, etc.).
+    # Called every frame to update game logic (movement, collisions, etc.).
     def on_update(self, delta_time):
         
-        #delta_time = time passed since last frame (not used here yet).
+        # Handles game logic updates like movement and collisions.
+        # Update player, bullets, and enemies
+        self.player.update()
+        self.bullet_list.update()
+        self.enemy_list.update()
 
-        self.player.update()      # Update player position based on velocity
+        # Check for bullet-enemy collisions
+        for bullet in self.bullet_list:
+            hit_list = arcade.check_for_collision_with_list(bullet, self.enemy_list)
+
+            # If the bullet hits any enemies, remove them
+            if hit_list:
+                bullet.remove_from_sprite_lists()  # Remove the bullet
+                for enemy in hit_list:
+                    enemy.remove_from_sprite_lists()  # Remove each enemy hit
 
     # Called when the player presses a key.
     def on_key_press(self, key, modifiers):
         
-        #Used to start movement in a direction.
-
-        # Update the player and enemy lists
-        self.enemy_list.update()
-        
+        #Used to start movement or fire a bullet when a key is pressed.
         # Set the player's velocity based on the key pressed
         if key in (arcade.key.LEFT, arcade.key.A):
             self.player.change_x = -self.player.speed
         elif key in (arcade.key.RIGHT, arcade.key.D):
             self.player.change_x = self.player.speed
+
+        # Fire a bullet when the spacebar is pressed
         elif key == arcade.key.SPACE:
             bullet = Bullet(self.player.center_x, self.player.top)
             self.bullet_list.append(bullet)
-        
-        # Check for bullet-enemy collisions
-        for bullet in self.bullet_list:
-            hit_list = arcade.check_for_collision_with_list(bullet, self.enemy_list)
-
-            # If the bullet hits an enemy, remove both the bullet and the enemy
-            if hit_list:
-                bullet.remove_from_sprite_lists()  # Remove the bullet
-                # Remove each enemy hit by the bullet
-                for enemy in hit_list:
-                    enemy.remove_from_sprite_lists()  # Remove each enemy hit
-
-        
-
-
 
     # Called when the player releases a key.
     def on_key_release(self, key, modifiers):
-       
-        #Stops movement in that direction.
-        
-        # Stop the player's horizontal movement when the key is released
+    
+        #Stops horizontal movement when a key is released.
         if key in (arcade.key.LEFT, arcade.key.RIGHT, arcade.key.A, arcade.key.D):
             self.player.change_x = 0
 
@@ -126,5 +107,5 @@ class NeoGalagaGame(arcade.Window):
 # Run this only if the file is executed directly
 if __name__ == "__main__":
     game = NeoGalagaGame()   # Create the game window
-    game.setup()             # Initialize game content (player, etc.)
+    game.setup()             # Initialize game content (player, bullets, enemies)
     arcade.run()             # Start the main game loop (render + update)
