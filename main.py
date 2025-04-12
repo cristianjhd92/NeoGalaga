@@ -11,13 +11,11 @@ from entities.player import Player
 from entities.bullet import Bullet
 from entities.enemy import Enemy
 
-
 # Main game class for NeoGalaga
 class NeoGalagaGame(arcade.Window):
     
     # Main game window that handles setup, updates, rendering, and input.
     
-
     def __init__(self):
         super().__init__(
             settings.SCREEN_WIDTH,
@@ -33,6 +31,19 @@ class NeoGalagaGame(arcade.Window):
         self.player_list = None
         self.bullet_list = None
         self.enemy_list = None
+        self.score = 0  # Player's score
+
+        # Create a reusable text object to display the score
+        # Use positional arguments (text, x, y, color, font_size) as required by current arcade version
+        # Only 'font_name' can be passed as keyword argument here
+        self.score_text = arcade.Text(
+            "Score: 0",                                # Initial text displayed at game start
+            10,                                        # X position (left margin of the screen)
+            settings.SCREEN_HEIGHT - 30,              # Y position (slightly below top edge)
+            settings.WHITE,                           # Text color (from color palette in settings)
+            settings.FONT_SIZE_MEDIUM,                # Font size (defined in settings)
+            font_name=settings.DEFAULT_FONT           # Font used (must be available or downloaded)
+        )
 
     def setup(self):
         
@@ -65,6 +76,9 @@ class NeoGalagaGame(arcade.Window):
         self.bullet_list.draw()
         self.enemy_list.draw()
 
+        # Draw score text using the Text object (more efficient than draw_text)
+        self.score_text.draw()  # Draw score in top-left corner
+
     # Override the on_update method to handle game logic
     def on_update(self, delta_time):
         # Called automatically each frame to update game logic.
@@ -85,6 +99,10 @@ class NeoGalagaGame(arcade.Window):
                 for enemy in hit_list:
                     # Remove the enemy from the game world
                     enemy.remove_from_sprite_lists()
+                    self.score += 100  # Add points per enemy destroyed
+
+        # Update the score text to reflect the new score
+        self.score_text.text = f"Score: {self.score}"
 
     # Override the on_key_press method to handle input
     def on_key_press(self, key, modifiers):
@@ -106,7 +124,7 @@ class NeoGalagaGame(arcade.Window):
 
     # Override the on_key_release method to handle input
     def on_key_release(self, key, modifiers):
-        #Handles key release events to stop movement.
+        # Handles key release events to stop movement.
         
         # If the left or right arrow key is released, stop the player's movement
         if key in (arcade.key.LEFT, arcade.key.RIGHT, arcade.key.A, arcade.key.D):
