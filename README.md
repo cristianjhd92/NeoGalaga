@@ -28,7 +28,7 @@ Developed in Python using the [Arcade](https://api.arcade.academy/en/latest/) li
 
 ## 📁 Project Structure
 
-NeoGalaga/ ├── main.py # Game entry point ├── settings.py # Global configuration │ ├── core/ # Core game logic │ └── game.py # (to be created) │ ├── entities/ # Game entities (player, enemies, bullets) │ ├── player.py # Player class with movement logic │ ├── enemy.py # (to be created) │ └── bullet.py # Bullet class fired by the player │ ├── assets/ # Visual and audio assets │ ├── images/ │ └── sounds/ │ ├── utils/ # Helper functions (optional) │ └── math_helpers.py # (to be created) │ ├── .gitignore # Git ignored files ├── .editorconfig # Code formatting rules ├── LICENSE # Project license (MIT) └── README.md # Project documentation
+NeoGalaga/ ├── main.py # Game entry point and main loop ├── settings.py # Global settings (screen, colors, speeds) │ ├── core/ # Core game logic (to be expanded) │ └── game.py # (to be created) │ ├── entities/ # Game entities (sprites) │ ├── player.py # Player class with movement logic │ ├── bullet.py # Bullet class fired by the player │ └── enemy.py # Enemy class with basic formation │ ├── assets/ # Game assets │ ├── images/ # (future sprite images) │ └── sounds/ # (future sound effects) │ ├── utils/ # Helper modules │ └── math_helpers.py # (to be created) │ ├── .gitignore # Git ignored files and folders ├── .editorconfig # Code style rules for consistency ├── LICENSE # Project license (MIT) └── README.md # Project documentation
 
 ---
 
@@ -69,7 +69,11 @@ python main.py
 
 -✅ Bullet system implemented (player can shoot with spacebar)
 
--🔧 In development: enemy behavior and wave generation
+-✅ Basic enemy class and formation displayed on screen
+
+-✅ Collision detection between bullets and enemies
+
+-🔧 In development: enemy movement and behavior patterns
 
 ---
 
