@@ -28,8 +28,7 @@ class Enemy(arcade.Sprite):
         self.change_y = 0
 
     # Called every frame to update the enemy's behavior.
-    def update(self):
-        
+    def update(self, delta_time: float = 1/60):
         
         # For now, enemies are static. Movement will be added later.
         self.center_y += self.change_y
