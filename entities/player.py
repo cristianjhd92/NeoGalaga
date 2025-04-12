@@ -12,11 +12,11 @@ class Player(arcade.Sprite):
     # Player class that represents the user's spaceship.
     # Inherits from arcade.Sprite and handles movement and boundaries.
     
+
     def __init__(self):
         
         # Constructor: creates and positions the player sprite.
-        # Passes the texture to the parent constructor to avoid draw() issues.
-        
+        # Passes the texture correctly as a positional argument.
 
         # Create a soft-colored square texture to use as the player ship
         texture = arcade.make_soft_square_texture(
@@ -26,8 +26,8 @@ class Player(arcade.Sprite):
             center_alpha=255         # Center opacity (fully opaque)
         )
 
-        # Initialize the sprite with the created texture and default scale
-        super().__init__(texture=texture, scale=1.0)
+        # Initialize the sprite with the created texture (as positional argument) and scale
+        super().__init__(texture, scale=1.0)
 
         # Position the player horizontally centered, near the bottom of the screen
         self.center_x = settings.SCREEN_WIDTH // 2
@@ -40,6 +40,7 @@ class Player(arcade.Sprite):
         
         # Update the player's position. Called every frame.
         # Handles horizontal movement and enforces screen boundaries.
+        
         # Apply horizontal movement
         self.center_x += self.change_x
 
