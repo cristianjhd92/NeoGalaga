@@ -63,33 +63,40 @@ python main.py
 
 ## 📌 Current Status
 
--✅ Project structure initialized
+- ✅ Project structure initialized
 
--✅ Player sprite added and integrated with keyboard movement
+- ✅ Player movement (left/right with arrow keys or A/D)
 
--✅ Bullet system implemented (player can shoot with spacebar)
+- ✅ Player can fire bullets using the spacebar
 
--✅ Basic enemy class and formation displayed on screen
+- ✅ Enemies appear in a basic top-row formation
 
--✅ Collision detection between bullets and enemies
+- ✅ Bullets collide with enemies and remove them
 
--🔧 In development: enemy movement and behavior patterns
+- ✅ Score system implemented and displayed on screen
+
+- ✅ Modular OOP structure using Arcade sprites
+
+- ⚙️ In progress: enemy movement and behavior patterns
 
 ---
 
 ## ✨ Features to Be Added
 
-- Enemy classes and attack patterns
-
-- Collision detection (bullets vs enemies)
+- Multiple enemy types and attack behaviors
 
 - Power-ups and special weapons
 
-- Scoring system and UI
+- Player lives / health system
 
 - Sound effects and background music
 
-- Game over screen and level progression
+- Level progression and difficulty scaling
+
+- Main menu and game over screen
+
+- Pause/resume functionality
+
 
 ## 📄 License
 
