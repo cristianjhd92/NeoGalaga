@@ -85,6 +85,9 @@ class NeoGalagaGame(arcade.Window):
     def on_key_press(self, key, modifiers):
         
         #Used to start movement in a direction.
+
+        # Update the player and enemy lists
+        self.enemy_list.update()
         
         # Set the player's velocity based on the key pressed
         if key in (arcade.key.LEFT, arcade.key.A):
@@ -95,8 +98,18 @@ class NeoGalagaGame(arcade.Window):
             bullet = Bullet(self.player.center_x, self.player.top)
             self.bullet_list.append(bullet)
         
-        # Update the player and enemy lists
-        self.enemy_list.update()
+        # Check for bullet-enemy collisions
+        for bullet in self.bullet_list:
+            hit_list = arcade.check_for_collision_with_list(bullet, self.enemy_list)
+
+            # If the bullet hits an enemy, remove both the bullet and the enemy
+            if hit_list:
+                bullet.remove_from_sprite_lists()  # Remove the bullet
+                # Remove each enemy hit by the bullet
+                for enemy in hit_list:
+                    enemy.remove_from_sprite_lists()  # Remove each enemy hit
+
+        
 
 
 
